@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends "hostel_app/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+<div class="jumbotron">
+  {% if registered %}
+    <h1>THANK YOU</h1>
+  {% else %}
+    <h1>Register here</h1>
+    <h2>Fill out the form:</h2>
+    <form enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ student_form.as_p }}
+      <input type="submit" class="btn btn-primary" value="Sign Up">
+    </form>
+  {% endif %}
+
+</div>
+
+{% endblock %}

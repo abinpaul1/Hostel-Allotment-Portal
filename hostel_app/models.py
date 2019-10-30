@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Student(models.Model):
@@ -11,6 +12,12 @@ class Student(models.Model):
 
     course = models.ForeignKey("Course",on_delete=models.CASCADE)
     room = models.ForeignKey("Room",on_delete=models.CASCADE,null=True)
+
+    def clean(self):
+        if self.gender != self.room.hostel.gender:
+            raise ValidationError("Sorry. We don't offer mixed hostels.")
+        if self.room.room_alloted==True:
+            raise ValidationError('Room is already alotted.')
 
     def __str__(self):
         return self.student_name
@@ -46,12 +53,13 @@ class Room(models.Model):
         ret_str = str(self.hostel) + "-" + str(self.room_num)
         return ret_str
 
+    class Meta:
+        ordering = ['hostel','room_num']
+
 class Course(models.Model):
 
     course_code = models.CharField(max_length=50,primary_key=True)
     course_name = models.CharField(max_length=50)
-    year_choice =  [('2016',"2016"),('2017',"2017"),('2018','2018'),('2019','2019')]
-    year = models.CharField( choices=year_choice, max_length=50)
     faculty = models.CharField(max_length=50)
 
     def __str__(self):

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% extends "hostel_app/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>Hostel List</h1>
+
+    <br>
+    <br>
+
+    {% if hostel_list %}
+    <ul>
+        {% for hostel in hostel_list %}
+            <a href="{% url 'hostel_app:hostel-details' hostel.hostel_name %}"><li><strong> {{hostel.hostel_name}} </strong></li></a>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}

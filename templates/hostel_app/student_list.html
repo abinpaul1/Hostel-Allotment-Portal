@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends "hostel_app/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>Student List</h1>
+
+    <br>
+    <br>
+
+    {% if student_list %}
+    <ul>
+        {% for student in student_list %}
+            <a href="{% url 'hostel_app:student-details' student.roll_no %}">
+              <li><strong> Roll No. : </strong>{{student.roll_no | upper}} <strong> Name. : </strong>{{student.student_name}}</li>
+            </a>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}

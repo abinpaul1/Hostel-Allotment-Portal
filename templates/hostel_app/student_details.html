@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends "hostel_app/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+    <h1>{{ student.student_name }}</h1>
+
+    <h3>Roll No : {{ student.roll_no }}</h1>
+
+    <ul>
+            <li><strong> Room No. : </strong>{{student.room}}</li>
+            <li><strong> Roll No. : </strong>{{student.roll_no | upper}}</li>
+            <li><strong> Name. : </strong>{{student.student_name}}</li>
+            <li><strong> Gender : </strong>{{student.gender}}</li>
+            <li><strong> Department : </strong>{{student.course.course_name}}</li>
+            <li><strong> Faculty Advisor : </strong>{{student.course.faculty}}</li>
+
+            <br>
+
+    </ul>
+{% endblock %}

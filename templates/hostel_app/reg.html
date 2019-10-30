@@ -7,15 +7,31 @@
   {% if registered %}
     <h1>THANK YOU</h1>
   {% else %}
-    <h1>Register here</h1>
+    <h1>Book here</h1>
     <h2>Fill out the form:</h2>
     <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
       {{ student_form.as_p }}
       <input type="submit" class="btn btn-primary" value="Sign Up">
     </form>
-  {% endif %}
+    {% if boys_hostel %}
+    <h2>Boys Hostel</h2>
+    <ul>
+        {% for hostel in boys_hostel %}
+            <li>{{hostel.hostel_name}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
+    {% if girls_hostel %}
+    <h2>Girls Hostel</h2>
+    <ul>
+        {% for hostel in girls_hostel %}
+            <li>{{hostel.hostel_name}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+  {% endif %}
 </div>
 
 {% endblock %}

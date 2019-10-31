@@ -6,12 +6,14 @@
 
     <h1>{{ student.student_name }}</h1>
 
-    <h3>Roll No : {{ student.roll_no }}</h1>
+    <h3>Roll No : {{ student.user.username }}</h1>
 
     <ul>
-            <li><strong> Room No. : </strong>{{student.room}}</li>
-            <li><strong> Roll No. : </strong>{{student.roll_no | upper}}</li>
-            <li><strong> Name. : </strong>{{student.student_name}}</li>
+            <li><strong> Hostel : </strong>
+            <a href="{% url 'hostel_app:hostel-details'%}">
+              {{student.room.hostel.hostel_name}}</li>
+            </a>
+            <li><strong> Room No. : </strong>{{ student.room.room_num}}</li>
             <li><strong> Gender : </strong>{{student.gender}}</li>
             <li><strong> Department : </strong>{{student.course.course_name}}</li>
             <li><strong> Faculty Advisor : </strong>{{student.course.faculty}}</li>

@@ -11,6 +11,7 @@
     <h2>Fill out the form:</h2>
     <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
+      {{ user_form.as_p }}
       {{ student_form.as_p }}
       <input type="submit" class="btn btn-primary" value="Sign Up">
     </form>

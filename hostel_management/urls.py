@@ -21,4 +21,5 @@ urlpatterns = [
     path('',views.index, name="index"),
     path('hostel_app/',include('hostel_app.urls')),
     path('admin/', admin.site.urls),
+    path('logout/',views.user_logout , name='logout'),
 ]

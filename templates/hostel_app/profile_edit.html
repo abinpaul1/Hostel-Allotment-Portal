@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends "hostel_app/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+<div class="jumbotron">
+    <h1>Edit Profile</h1>
+    <form enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ student_form.as_table }}
+      <input type="submit" class="btn btn-primary" value="Sign Up">
+    </form>
+    {% if boys_hostel %}
+    <h2>Boys Hostel</h2>
+    <ul>
+        {% for hostel in boys_hostel %}
+            <li>{{hostel.hostel_name}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if girls_hostel %}
+    <h2>Girls Hostel</h2>
+    <ul>
+        {% for hostel in girls_hostel %}
+            <li>{{hostel.hostel_name}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+{% endblock %}

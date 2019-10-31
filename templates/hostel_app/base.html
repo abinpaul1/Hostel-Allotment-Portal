@@ -22,10 +22,22 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li><a href="{% url 'hostel_app:reg' %}">Book room</a></li>
-          <li><a href="{% url 'hostel_app:hostel-list' %}">Hostel List</a></li>
+          {% if user.is_authenticated %}
+          <li><a class="navbar-link" href="{% url 'hostel_app:student-details'%}">View Profile</a></li>
+          <li><a class="navbar-link" href="{% url 'hostel_app:edit-profile'%}">Edit Profile</a></li>
+          <li><a href="{% url 'hostel_app:hostel-details' %}">Hostel Details</a></li>
+          <li><a href="{% url 'hostel_app:hostel-student-list' %}">Hostel Student List</a></li>
+          {% else %}
+          <li><a class="navbar-link" href="{% url 'hostel_app:reg' %}">Register</a></li>
           <li><a href="{% url 'hostel_app:student-list' %}">Student List</a></li>
-          <li><a href="{% url 'admin:index' %}">Admin</a></li>
+          {% endif %}
+
+
+          {% if user.is_authenticated %}
+            <li><a class="navbar-link" href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+            <li><a class="navbar-link" href="{% url 'hostel_app:user_login' %}">Login</a></li>
+          {% endif %}
         </ul>
       </div>
     </div>

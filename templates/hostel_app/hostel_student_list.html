@@ -11,8 +11,14 @@
     {% if student_list %}
     <ul>
         {% for student in student_list %}
-              <li><strong> Roll No. : </strong>{{student.user.username | upper}} <strong> Name. : </strong>{{student.student_name}}</li>
+
+            <li><strong> Roll No. : </strong>{{student.user.username | upper}}</li>
+            <li><strong> Room No. : </strong>{{student.room.room_num}}</li>
+            <li><strong> Name. : </strong>{{student.student_name}}</li>
+            <br>
+
         {% endfor %}
     </ul>
     {% endif %}
+
 {% endblock %}

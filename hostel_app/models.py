@@ -1,10 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Student(models.Model):
 
-    roll_no = models.CharField(max_length=50, primary_key=True)
+    user = models.OneToOneField(User,max_length=9,on_delete=models.CASCADE)
     student_name = models.CharField(max_length=50)
 
     gender_choice = [('M',"Male"),('F',"Female")]
@@ -18,9 +19,13 @@ class Student(models.Model):
             raise ValidationError("Sorry. We don't offer mixed hostels.")
         if self.room.room_alloted==True:
             raise ValidationError('Room is already alotted.')
+        # if Student.objects.filter(user__username__iexact=user.username).exists() :
+        #     raise ValidationError("User already exists")
+        # elif not re.match(r"[mbp]\d{6}[a-z][a-z]",str(user.username),re.I):
+        #     print("Invalid Roll No")
 
     def __str__(self):
-        return self.student_name
+        return self.user.username
 
 class Hostel(models.Model):
 
@@ -29,7 +34,7 @@ class Hostel(models.Model):
     gender_choice = [('M',"Male"),('F',"Female")]
 
     gender = models.CharField(choices=gender_choice, max_length=1, default=None)
-    mess = models.ForeignKey("Mess", on_delete=models.CASCADE)
+    mess = models.OneToOneField("Mess", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.hostel_name

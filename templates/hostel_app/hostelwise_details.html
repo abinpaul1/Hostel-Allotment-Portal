@@ -15,19 +15,4 @@
     <h4>Mess Fees Daily : Rs.{{ hostel.mess.daily_fees}}</h4>
     <br>
     <br>
-
-    {% if students %}
-    <ul>
-        {% for student in students %}
-
-            <li><strong> Room No. : </strong>{{student.room}}</li>
-            <li><strong> Roll No. : </strong>{{student.roll_no | upper}}</li>
-            <li><strong> Name. : </strong>{{student.student_name}}</li>
-            <li><strong> Gender : </strong>{{student.gender}}</li>
-            <li><strong> Course : </strong>{{student.course}}</li>
-            <br>
-
-        {% endfor %}
-    </ul>
-    {% endif %}
 {% endblock %}

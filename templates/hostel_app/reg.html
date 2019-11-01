@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block body_block %}
-<div class="jumbotron">
+<div>
   {% if registered %}
     <h1>THANK YOU</h1>
   {% else %}
@@ -11,9 +11,62 @@
     <h2>Fill out the form:</h2>
     <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
-      {{ user_form.as_p }}
-      {{ student_form.as_p }}
-      <input type="submit" class="btn btn-primary" value="Sign Up">
+      <!-- UserForm -->
+      <div class="form-group">
+        <label for="id_username"> Username </label>
+        <input required id="id_username" class="textarea-css" type="text" name="username" value="">
+        <span class="helptext">Same as your Roll No.</span></p>
+      </div>
+
+      <div class="form-group">
+        <label for="id_password"> Password </label>
+        <input required id="id_password" class="textarea-css" type="password" name="password" value="">
+      </div>
+
+      <!-- End UserForm -->
+
+      <!-- StudentForm -->
+      <div class="form-group">
+        <label for="id_student_name"> Name </label>
+        <input class="textarea-css" type="text" name="student_name" value="{{student_form.student_name.value}}">
+      </div>
+
+      <div class="form-group">
+        <!-- Name attribute should match form attribute -->
+        <label for="id_gender"> Gender </label>
+        <select id="id_gender" name="gender" class="select-css">
+          {% for value,key in student_form.fields.gender.choices %}
+              <option value="{{ value }}"{% if student_form.initial.gender == value %} selected {% endif %}>
+                  {{ key }}
+              </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="id_course"> Course </label>
+        <select id="id_course" name="course" class="select-css">
+          {% for value,key in student_form.fields.course.choices %}
+              <option value="{{ value }}"{% if student_form.initial.course == value %} selected {% endif %}>
+                  {{ key }}
+              </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="id_room"> Room </label>
+        <select id="id_room" name="room" class="select-css">
+          {% for value,key in student_form.fields.room.choices %}
+              <option value="{{ value }}"{% if student_form.initial.room == value %} selected {% endif %}>
+                  {{ key }}
+              </option>
+          {% endfor %}
+        </select>
+      </div>
+      <!-- End StudentForm -->
+
+      <input type="submit" class="btn btn-primary" value="Register">
     </form>
     {% if boys_hostel %}
     <h2>Boys Hostel</h2>

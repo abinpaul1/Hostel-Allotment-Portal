@@ -6,11 +6,15 @@
   <h1>Please login</h1>
   <form action="{% url 'hostel_app:user_login'%}" method="post">
     {% csrf_token %}
-    <label for="username">Roll No. : </label>
-    <input type="text" name="username" placeholder="Enter name">
-    <label for="password"> Password :</label>
-    <input type="password" name="password">
-    <input type="submit" name="" value="Login">
+    <div class="form-group">
+      <label for="username">Roll No. : </label>
+      <input class="textarea-css" type="text" name="username" placeholder="">
+    </div>
+    <div class="form-group">
+      <label for="password"> Password :</label>
+      <input class="textarea-css" type="password" name="password">
+    </div>
+    <input type="submit" class="btn btn-success" value="Login">
   </form>
 </div>
 

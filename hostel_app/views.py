@@ -37,7 +37,8 @@ def reg(request):
             student = student_form.save(commit=False)
             student.user = user;
 
-            b = Room.objects.get(hostel = student.room.hostel , room_num = student.room.room_num)
+            #b = Room.objects.get(hostel = student.room.hostel , room_num = student.room.room_num)
+            b = Room.objects.raw('select * from hostel_app_room where room_num = %s and hostel_id =%s',[student.room.room_num,student.room.hostel])[0]
             b.room_alloted = True;
             b.save()
 
@@ -51,8 +52,10 @@ def reg(request):
         user_form = forms.UserForm()
         student_form = forms.StudentForm()
 
-    boys_hostel = Hostel.objects.filter(gender="M")
-    girls_hostel = Hostel.objects.filter(gender="F")
+    #boys_hostel = Hostel.objects.filter(gender="M")
+    #girls_hostel = Hostel.objects.filter(gender="F")
+    boys_hostel = Hostel.objects.raw('select * from hostel_app_hostel where gender="M"');
+    girls_hostel = Hostel.objects.raw('select * from hostel_app_hostel where gender="F"');
 
     return render(request,'hostel_app/reg.html',
                             {'user_form':user_form,
@@ -64,25 +67,27 @@ def reg(request):
 
 @login_required
 def edit(request):
-    current_student = Student.objects.get(user__username=request.user.get_username())
+    current_student = Student.objects.raw('select h.* from hostel_app_student as h ,auth_user as a where a.id=h.user_id and a.username=%s',[request.user.get_username()])[0]
     current_hostel = current_student.room.hostel.hostel_name
     current_room = current_student.room.room_num
     if request.method == 'POST':
         #Deallocating current room
-        b = Room.objects.get(hostel = current_hostel , room_num = current_room)
+        #b = Room.objects.get(hostel = current_hostel , room_num = current_room)
+        b = Room.objects.raw('select * from hostel_app_room where room_num = %s and hostel_id =%s',[current_room,current_hostel])[0]
         b.room_alloted = False;
         b.save()
 
         student_form = forms.StudentForm(request.POST, instance=request.user.student)
         if student_form.is_valid():
-            current_student = Student.objects.get(user__username=request.user.get_username())
+            current_student = Student.objects.raw('select h.* from hostel_app_student as h ,auth_user as a where a.id=h.user_id and a.username=%s',[request.user.get_username()])[0]
             current_hostel = current_student.room.hostel.hostel_name
             current_room = current_student.room.room_num
 
             student = student_form.save(commit=False)
 
             #Allocating new room
-            b = Room.objects.get(hostel = student.room.hostel , room_num = student.room.room_num)
+            #b = Room.objects.get(hostel = student.room.hostel , room_num = student.room.room_num)
+            b = Room.objects.raw('select * from hostel_app_room where room_num = %s and hostel_id =%s',[student.room.room_num,student.room.hostel])[0]
             b.room_alloted = True;
             b.save()
 
@@ -90,14 +95,17 @@ def edit(request):
             return render(request, 'hostel_app/index.html')
         else:
             #Re-allocating current room
-            b = Room.objects.get(hostel = current_hostel , room_num = current_room)
+            #b = Room.objects.get(hostel = current_hostel , room_num = current_room)
+            b = Room.objects.raw('select * from hostel_app_room where room_num = %s and hostel_id =%s',[current_room,current_hostel])[0]
             b.room_alloted = True;
             b.save()
     else:
         student_form = forms.StudentForm(instance=request.user.student)
 
-    boys_hostel = Hostel.objects.filter(gender="M")
-    girls_hostel = Hostel.objects.filter(gender="F")
+    #boys_hostel = Hostel.objects.filter(gender="M")
+    #girls_hostel = Hostel.objects.filter(gender="F")
+    boys_hostel = Hostel.objects.raw('select * from hostel_app_hostel where gender="M"');
+    girls_hostel = Hostel.objects.raw('select * from hostel_app_hostel where gender="F"');
 
     return render(request,'hostel_app/profile_edit.html',
                             {'student_form':student_form,
@@ -129,7 +137,8 @@ def user_login(request):
 from django.views import generic
 
 def HostelList(request):
-    hostel = Hostel.objects.all()
+    #hostel = Hostel.objects.all()
+    hostel = Hostel.objects.raw('select * from hostel_app_hostel')
     context = {
         'hostel_list':hostel,
     }
@@ -138,11 +147,15 @@ def HostelList(request):
 
 @login_required
 def HostelWiseView(request):
-    current_student = Student.objects.get(user__username=request.user.get_username())
+    #current_student = Student.objects.get(user__username=request.user.get_username())
+    current_student = Student.objects.raw('select h.* from hostel_app_student as h ,auth_user as a where a.id=h.user_id and a.username=%s',[request.user.get_username()])[0]
     hostel_name = current_student.room.hostel.hostel_name
-    students = Student.objects.filter(room__hostel__hostel_name=hostel_name)
-    count = students.count()
-    hostel = Hostel.objects.get(hostel_name=hostel_name)
+    #students = Student.objects.filter(room__hostel__hostel_name=hostel_name)
+    #count = students.count()
+    #hostel = Hostel.objects.get(hostel_name=hostel_name)
+    students = Student.objects.raw('select s.* from hostel_app_student s, hostel_app_room r where s.room_id=r.id and hostel_id=%s',[hostel_name])
+    count = len(students)
+    hostel = Hostel.objects.raw('select * from hostel_app_hostel where hostel_name=%s',[hostel_name])[0]
     context = {
         'students':students,
         'hostel':hostel,
@@ -152,7 +165,8 @@ def HostelWiseView(request):
                             context=context)
 
 def StudentList(request):
-    student = Student.objects.all()
+    #student = Student.objects.all()
+    student = Student.objects.raw('select * from hostel_app_student')
     context = {
         'student_list':student,
     }
@@ -161,9 +175,11 @@ def StudentList(request):
 
 @login_required
 def HostelStudentList(request):
-    current_student = Student.objects.get(user__username=request.user.get_username())
+    #current_student = Student.objects.get(user__username=request.user.get_username())
+    current_student = Student.objects.raw('select h.* from hostel_app_student as h ,auth_user as a where a.id=h.user_id and a.username=%s',[request.user.get_username()])[0]
     hostel_name = current_student.room.hostel.hostel_name
-    students = Student.objects.filter(room__hostel__hostel_name=hostel_name)
+    #students = Student.objects.filter(room__hostel__hostel_name=hostel_name)
+    students = Student.objects.raw('select s.* from hostel_app_student s, hostel_app_room r where s.room_id=r.id and hostel_id=%s',[hostel_name])
     context = {
         'student_list':students,
     }
@@ -173,7 +189,8 @@ def HostelStudentList(request):
 @login_required
 def StudentProfileView(request):
     current_user = request.user.get_username()
-    student = Student.objects.get(user__username = current_user)
+    #student = Student.objects.get(user__username = current_user)
+    student = Student.objects.raw('select h.* from hostel_app_student as h ,auth_user as a where a.id=h.user_id and a.username=%s',[current_user])[0]
     context = {
         'student':student,
     }

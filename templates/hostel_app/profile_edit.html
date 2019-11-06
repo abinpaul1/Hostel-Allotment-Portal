@@ -8,17 +8,30 @@
 
     <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
+      <div class="alert alert-danger" role="alert">
+        {% if student_form.errors %}
+          <div class="error">
+             <ul>
+               {% for key,value in student_form.errors.items %}
+                {% for error in value %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+               {% endfor %}
+             </ul>
+          </div>
+        {% endif %}
+      </div>
       <div class="form-group">
         <label for="id_student_name"> Name :</label>
-        <input class="textarea-css" type="text" name="student_name" value="{{student_form.student_name.value}}">
+        <input required class="textarea-css" type="text" name="student_name" value="{{student_form.student_name.value}}">
       </div>
 
       <div class="form-group">
         <!-- Name attribute should match form attribute -->
         <label for="id_gender">Gender:</label>
-        <select id="id_gender" name="gender" class="select-css">
+        <select required id="id_gender" name="gender" class="select-css">
           {% for value,key in student_form.fields.gender.choices %}
-              <option value="{{ value }}"{% if student_form.initial.gender == value %} selected {% endif %}>
+              <option value="{{ value }}"{% if student_form.gender.value == value %} selected {% endif %}>
                   {{ key }}
               </option>
           {% endfor %}
@@ -29,7 +42,7 @@
         <label for="id_course">Course:</label>
         <select id="id_course" name="course" class="select-css">
           {% for value,key in student_form.fields.course.choices %}
-              <option value="{{ value }}"{% if student_form.initial.course == value %} selected {% endif %}>
+              <option value="{{ value }}"{% if student_form.course.value == value %} selected {% endif %}>
                   {{ key }}
               </option>
           {% endfor %}
@@ -38,9 +51,11 @@
 
       <div class="form-group">
         <label for="id_room">Room:</label>
-        <select id="id_room" name="room" class="select-css">
+        <select required id="id_room" name="room" class="select-css">
           {% for value,key in student_form.fields.room.choices %}
-              <option value="{{ value }}"{% if student_form.initial.room == value %} selected {% endif %}>
+              <option value="{{ value }}"{% if value == student_form.room.value %} selected {% endif %}>
+                  <!-- {{student_form.room.value}}
+                  {{value}} -->
                   {{ key }}
               </option>
           {% endfor %}

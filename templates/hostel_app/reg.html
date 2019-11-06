@@ -11,16 +11,42 @@
     <h2>Fill out the form:</h2>
     <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
+      <!-- {{ user_form.as_p }}
+      {{ student_form.as_p }} -->
+      <div class="alert alert-danger" role="alert">
+        {% if user_form.errors %}
+          <div class="error">
+             <ul>
+               {% for key,value in user_form.errors.items %}
+                {% for error in value %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+               {% endfor %}
+             </ul>
+          </div>
+        {% endif %}
+        {% if student_form.errors %}
+          <div class="error">
+             <ul>
+               {% for key,value in student_form.errors.items %}
+                {% for error in value %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+               {% endfor %}
+             </ul>
+          </div>
+        {% endif %}
+      </div>
       <!-- UserForm -->
       <div class="form-group">
         <label for="id_username"> Username </label>
-        <input required id="id_username" class="textarea-css" type="text" name="username" value="">
+        <input required id="id_username" class="textarea-css" type="text" name="username" value="{% if user_form.username.value %}{{user_form.username.value}}{% else %}{% endif %}">
         <span class="helptext">Same as your Roll No.</span></p>
       </div>
 
       <div class="form-group">
         <label for="id_password"> Password </label>
-        <input required id="id_password" class="textarea-css" type="password" name="password" value="">
+        <input required id="id_password" class="textarea-css" type="password" name="password" value="{% if user_form.password.value %}{{user_form.password.value}}{% else %}{% endif %}">
       </div>
 
       <!-- End UserForm -->
@@ -28,15 +54,15 @@
       <!-- StudentForm -->
       <div class="form-group">
         <label for="id_student_name"> Name </label>
-        <input class="textarea-css" type="text" name="student_name" value="{{student_form.student_name.value}}">
+        <input required class="textarea-css" type="text" name="student_name" value="{% if student_form.student_name.value %}{{student_form.student_name.value}}{% else %}{% endif %}">
       </div>
 
       <div class="form-group">
         <!-- Name attribute should match form attribute -->
         <label for="id_gender"> Gender </label>
-        <select id="id_gender" name="gender" class="select-css">
+        <select required id="id_gender" name="gender" class="select-css">
           {% for value,key in student_form.fields.gender.choices %}
-              <option value="{{ value }}"{% if student_form.initial.gender == value %} selected {% endif %}>
+              <option value="{{ value }}" {% if student_form.gender.value == value %} selected {% endif %}>
                   {{ key }}
               </option>
           {% endfor %}
@@ -45,9 +71,10 @@
 
       <div class="form-group">
         <label for="id_course"> Course </label>
-        <select id="id_course" name="course" class="select-css">
+        <select required id="id_course" name="course" class="select-css" value="{{student_form.course.value}}">
           {% for value,key in student_form.fields.course.choices %}
-              <option value="{{ value }}"{% if student_form.initial.course == value %} selected {% endif %}>
+              <!-- <h1>{{student_form.course}}</h1> -->
+              <option value="{{ value }}" {% if student_form.course.value == value %} selected {% endif %}>
                   {{ key }}
               </option>
           {% endfor %}
@@ -56,9 +83,9 @@
 
       <div class="form-group">
         <label for="id_room"> Room </label>
-        <select id="id_room" name="room" class="select-css">
+        <select required id="id_room" name="room" class="select-css">
           {% for value,key in student_form.fields.room.choices %}
-              <option value="{{ value }}"{% if student_form.initial.room == value %} selected {% endif %}>
+              <option value="{{ value }}" {% if student_form.room.choices.value == value %} selected {% endif %}>
                   {{ key }}
               </option>
           {% endfor %}

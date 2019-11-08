@@ -12,4 +12,6 @@ urlpatterns = [
     path('hostel/student_list/',views.HostelStudentList, name='hostel-student-list'),
     path('profile/',views.StudentProfileView, name='student-details'),
     path('profile/edit',views.edit, name='edit-profile'),
+    path('warden/add_room',views.add_room, name='warden-add-room'),
+    path('warden/add_hostel',views.add_hostel, name='warden-add-hostel'),
 ]

@@ -1,5 +1,5 @@
 from django import forms
-from hostel_app.models import Student
+from hostel_app.models import Student,Room,Hostel
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
@@ -17,6 +17,16 @@ class StudentForm(forms.ModelForm):
         model = Student
         fields = ('student_name','gender','course','room');
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.queryset = Student.objects.filter(room__room_alloted=False)
+    def __init__(self, *args, **kwargs):
+        super(StudentForm, self).__init__(*args, **kwargs)
+        self.fields['room'].queryset = Room.objects.filter(room_alloted=False)
+
+class RoomForm(forms.ModelForm):
+    class Meta():
+        model = Room
+        fields = ['hostel','room_num']
+
+class HostelForm(forms.ModelForm):
+    class Meta():
+        model = Hostel
+        fields = ['hostel_name', 'warden','gender','mess']

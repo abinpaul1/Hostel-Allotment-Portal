@@ -9,10 +9,12 @@
     <br>
 
     {% if student_list %}
-    <ul>
-        {% for student in student_list %}
-              <li><strong> Roll No. : </strong>{{student.user.username | upper}} <strong> Name. : </strong>{{student.student_name}}</li>
-        {% endfor %}
-    </ul>
+    <div class="list-type5">
+      <ol>
+          {% for student in student_list %}
+                <li><strong> Roll No. : </strong>{{student.user.username | upper}} <strong> Name. : </strong>{{student.student_name}}</li>
+          {% endfor %}
+      <ol>
+    </div>
     {% endif %}
 {% endblock %}

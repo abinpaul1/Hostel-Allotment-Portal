@@ -3,22 +3,19 @@
 {% load staticfiles %}
 
 {% block body_block %}
-
-    <h1>{{ student.student_name }}</h1>
-
-    <h3>Roll No : {{ student.user.username }}</h1>
-
-    <ul>
-            <li><strong> Hostel : </strong>
-            <a href="{% url 'hostel_app:hostel-details'%}">
-              {{student.room.hostel.hostel_name}}</li>
-            </a>
-            <li><strong> Room No. : </strong>{{ student.room.room_num}}</li>
-            <li><strong> Gender : </strong>{{student.gender}}</li>
-            <li><strong> Department : </strong>{{student.course.course_name}}</li>
-            <li><strong> Faculty Advisor : </strong>{{student.course.faculty}}</li>
-
-            <br>
-
-    </ul>
+    <div class="container">
+      <div class="card" style="border-color: white; border-width: 8px; border-style: ridge;">
+        {% if student.gender == 'F' %}
+          <img src="{% static "hostel_app/female.jpg"%}" alt="Female" style="width:100%">
+        {% else %}
+          <img src="{% static "hostel_app/male.jpg"%}" alt="Male" style="width:100%">
+        {% endif %}
+        <h1>{{ student.student_name }}</h1>
+        <p class="title"><strong>{{student.user.username | upper }}</strong></p>
+        <p>{{student.room.hostel.hostel_name}} Hostel - {{ student.room.room_num}}</p>
+        <p>{{student.course.course_name}}</p>
+        <p>Faculty Advisor : {{student.course.faculty}}</p>
+        <button class="button1" onclick="location.href='{% url 'hostel_app:edit-profile'%}';">Edit Profile</button>
+      </div>
+    </div>
 {% endblock %}

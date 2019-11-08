@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends "hostel_app/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+<div>
+  {% if not is_warden %}
+    <h2 style="text-align:center;">Only wardens can add Rooms</h2>
+  {% else %}
+    <h1>Add room</h1>
+    <div class="main-w3layouts wrapper">
+      <div class="main-agileinfo">
+        <div class="agileits-top">
+          {% if room_added %}
+            <script>
+            alert("Room Added!!");
+            </script>
+          {% endif %}
+          <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {% if room_form.errors %}
+              <div class="alert alert-danger" role="alert">
+                <div class="error">
+                   <ul>
+                     {% for key,value in room_form.errors.items %}
+                      {% for error in value %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                     {% endfor %}
+                   </ul>
+                </div>
+              </div>
+            {% endif %}
+            <!-- RoomForm -->
+
+            <div class="form-group">
+              <label for="id_hostel"> Hostel </label>
+              <select required id="id_hostel" name="hostel" placeholder="Room" class="select-css">
+                {% for value,key in room_form.fields.hostel.choices %}
+                    <option value="{{ value }}">
+                        {{ key }}
+                    </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="id_room"> Room Number</label>
+              <input required class="textarea-css" type="number" name="room_num" placeholder="Room Number">
+            </div>
+            <!-- End RoomForm -->
+
+            <input type="submit" class="reg_button" value="Add room">
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% extends "hostel_app/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+<div>
+  {% if not is_warden %}
+    <h2 style="text-align:center;">Only warden can add new Hostel</h2>
+  {% else %}
+    <h1>Add Hostel</h1>
+    <div class="main-w3layouts wrapper">
+      <div class="main-agileinfo">
+        <div class="agileits-top">
+          {% if hostel_added %}
+            <script>
+            alert("Hostel Added!!");
+            </script>
+          {% endif %}
+          <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {% if hostel_form.errors %}
+              <div class="alert alert-danger" role="alert">
+                <div class="error">
+                   <ul>
+                     {% for key,value in hostel_form.errors.items %}
+                      {% for error in value %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                     {% endfor %}
+                   </ul>
+                </div>
+              </div>
+            {% endif %}
+            <!-- HostelForm -->
+
+            <div class="form-group">
+              <label for="id_hostel_name"> Hostel Name </label>
+              <input required class="textarea-css" type="text" name="hostel_name" placeholder="Hostel Name" value="{% if hostel_form.hostel_name.value %}{{hostel_form.hostel_name.value}}{% else %}{% endif %}">
+            </div>
+
+            <div class="form-group">
+              <label for="id_warden"> Warden </label>
+              <input required class="textarea-css" type="text" name="warden" placeholder="Warden" value="{% if hostel_form.warden.value %}{{hostel_form.warden.value}}{% else %}{% endif %}">
+            </div>
+
+            <div class="form-group">
+              <!-- Name attribute should match form attribute -->
+              <label for="id_gender"> Gender </label>
+              <select required id="id_gender" name="gender" placeholder="Gender" class="select-css">
+                {% for value,key in hostel_form.fields.gender.choices %}
+                    <option value="{{ value }}" {% if hostel_form.gender.value == value %} selected {% endif %}>
+                        {{ key }}
+                    </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="id_mess"> Mess </label>
+              <select required id="id_mess" name="mess" placeholder="Mess" class="select-css">
+                {% for value,key in hostel_form.fields.mess.choices %}
+                    <option value="{{ value }}"{% if hostel_form.mess.value == value %} selected {% endif %}>
+                        {{ key }}
+                    </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- End HostelForm -->
+
+            <input type="submit" class="reg_button" value="Add Hostel">
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

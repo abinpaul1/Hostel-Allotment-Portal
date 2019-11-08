@@ -59,6 +59,7 @@ class Room(models.Model):
         return ret_str
 
     class Meta:
+        unique_together = ('hostel','room_num',)
         ordering = ['hostel','room_num']
 
 class Course(models.Model):

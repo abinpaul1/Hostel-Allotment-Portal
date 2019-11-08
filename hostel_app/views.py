@@ -92,7 +92,7 @@ def edit(request):
             b.save()
 
             student.save()
-            return render(request, 'hostel_app/index.html')
+            return StudentProfileView(request)
         else:
             #Re-allocating current room
             #b = Room.objects.get(hostel = current_hostel , room_num = current_room)
@@ -123,8 +123,10 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request,user)
-                return HttpResponseRedirect(reverse('index'))
-
+                if username=="chief_warden":
+                    return HttpResponseRedirect(reverse('index'))
+                else:
+                    return StudentProfileView(request)
             else:
                 return HttpResponse("Account not active")
         else:
@@ -178,10 +180,14 @@ def HostelStudentList(request):
     #current_student = Student.objects.get(user__username=request.user.get_username())
     current_student = Student.objects.raw('select h.* from hostel_app_student as h ,auth_user as a where a.id=h.user_id and a.username=%s',[request.user.get_username()])[0]
     hostel_name = current_student.room.hostel.hostel_name
-    #students = Student.objects.filter(room__hostel__hostel_name=hostel_name)
-    students = Student.objects.raw('select s.* from hostel_app_student s, hostel_app_room r where s.room_id=r.id and hostel_id=%s',[hostel_name])
+    students = Student.objects.filter(room__hostel__hostel_name=hostel_name).order_by('room__room_num')
+    row_count = students.count()
+    students = Student.objects.raw('select s.* from hostel_app_student s, hostel_app_room r where s.room_id=r.id and hostel_id=%s order by r.room_num',[hostel_name])
+    n = 4
+    students_list = [students[i * n:(i + 1) * n] for i in range((len(students) + n - 1) // n )]
     context = {
-        'student_list':students,
+        'student_list':students_list,
+        'num_rows':range(row_count),
     }
     return render(request,'hostel_app/hostel_student_list.html',
                             context=context)
@@ -196,3 +202,44 @@ def StudentProfileView(request):
     }
     return render(request,'hostel_app/student_details.html',
                             context=context)
+
+@login_required
+def add_room(request):
+    current_user = request.user.get_username()
+    warden = True
+    if current_user!="chief_warden":
+        warden = False
+
+    room_added = False
+    if request.method == 'POST':
+        room_form = forms.RoomForm(request.POST)
+        if room_form.is_valid():
+            room = room_form.save(commit=False)
+            room.save()
+            room_added = True;
+    else:
+        room_form = forms.RoomForm()
+
+    return render(request,'hostel_app/add_room.html',
+                                {'room_form':room_form, 'room_added':room_added, 'is_warden':warden})
+
+@login_required
+def add_hostel(request):
+    current_user = request.user.get_username()
+    warden = True
+    if current_user!="chief_warden":
+        warden = False
+
+    hostel_added = False
+    if request.method == 'POST':
+        hostel_form = forms.HostelForm(request.POST)
+        if hostel_form.is_valid():
+            hostel = hostel_form.save(commit=False)
+            hostel.save()
+            hostel_added = True;
+            hostel_form = forms.HostelForm()
+    else:
+        hostel_form = forms.HostelForm()
+
+    return render(request,'hostel_app/add_hostel.html',
+                                {'hostel_form':hostel_form, 'hostel_added':hostel_added, 'is_warden':warden})

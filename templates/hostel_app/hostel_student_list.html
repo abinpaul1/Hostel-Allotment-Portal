@@ -3,22 +3,30 @@
 {% load staticfiles %}
 
 {% block body_block %}
-    <h1>Student List</h1>
-
-    <br>
-    <br>
+    <h1>Alotted Rooms</h1>
 
     {% if student_list %}
-    <ul>
-        {% for student in student_list %}
-
-            <li><strong> Roll No. : </strong>{{student.user.username | upper}}</li>
-            <li><strong> Room No. : </strong>{{student.room.room_num}}</li>
-            <li><strong> Name. : </strong>{{student.student_name}}</li>
-            <br>
-
+      <div class="container-fluid">
+        {% for students in student_list %}
+        <div class="row text-center">
+          {% for student in students %}
+            <div class="col-lg-3">
+              <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <h1> Room {{student.room.room_num}}</h1>
+                  </div>
+                  <div class="flip-card-back">
+                    <h1>{{student.user.username | upper}}</h1>
+                    <h2>{{student.student_name}}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
         {% endfor %}
-    </ul>
+      </div>
     {% endif %}
 
 {% endblock %}

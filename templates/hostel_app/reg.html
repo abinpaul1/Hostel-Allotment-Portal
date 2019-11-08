@@ -4,115 +4,149 @@
 
 {% block body_block %}
 <div>
+  <style>
+    div.a-full {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: 100px;
+      margin-bottom: 50px;
+      justify-content: center;
+    }
+    div.a-central-div {
+      padding: 0 40px;
+      border-color: white;
+      border-width: 10px;
+      border-style: double;
+      border-collapse: separate;
+    }
+  </style>
   {% if registered %}
-    <h1>THANK YOU</h1>
+    <div class="container">
+      <div class="jumbotron">
+        <h2>Room has been alotted</h2>
+        <h2>Login to view your profile</h2>
+      </div>
+    </div>
   {% else %}
-    <h1>Book here</h1>
-    <h2>Fill out the form:</h2>
-    <form enctype="multipart/form-data" method="post">
-      {% csrf_token %}
-      <!-- {{ user_form.as_p }}
-      {{ student_form.as_p }} -->
-      <div class="alert alert-danger" role="alert">
-        {% if user_form.errors %}
-          <div class="error">
-             <ul>
-               {% for key,value in user_form.errors.items %}
-                {% for error in value %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-               {% endfor %}
-             </ul>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="main-w3layouts">
+            <div class="main-agileinfo-reg">
+              <div class="agileits-top-reg">
+                <form enctype="multipart/form-data" method="post">
+                  {% csrf_token %}
+                  {% if user_form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      <div class="error">
+                         <ul>
+                           {% for key,value in user_form.errors.items %}
+                            {% for error in value %}
+                              <li>{{ error }}</li>
+                            {% endfor %}
+                           {% endfor %}
+                         </ul>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if student_form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      <div class="error">
+                         <ul>
+                           {% for key,value in student_form.errors.items %}
+                            {% for error in value %}
+                              <li>{{ error }}</li>
+                            {% endfor %}
+                           {% endfor %}
+                         </ul>
+                      </div>
+                    </div>
+                  {% endif %}
+                  <!-- UserForm -->
+                  <div class="form-group">
+                    <!-- <label for="id_username"> Username </label> -->
+                    <input required id="id_username" class="textarea-css" placeholder="Username" type="text" name="username" value="{% if user_form.username.value %}{{user_form.username.value}}{% else %}{% endif %}" autocomplete="false">
+                    <span class="helptext">Same as your Roll No.</span></p>
+                  </div>
+
+                  <div class="form-group">
+                    <!-- <label for="id_password"> Password </label> -->
+                    <input required id="id_password" class="textarea-css" placeholder="Password" type="password" name="password" value="{% if user_form.password.value %}{{user_form.password.value}}{% else %}{% endif %}" autocomplete="false">
+                  </div>
+
+                  <!-- End UserForm -->
+
+                  <!-- StudentForm -->
+                  <div class="form-group">
+                    <label for="id_student_name"> Name </label>
+                    <input required class="textarea-css" type="text" name="student_name" placeholder="Name" value="{% if student_form.student_name.value %}{{student_form.student_name.value}}{% else %}{% endif %}">
+                  </div>
+
+                  <div class="form-group">
+                    <!-- Name attribute should match form attribute -->
+                    <label for="id_gender"> Gender </label>
+                    <select required id="id_gender" name="gender" placeholder="Gender" class="select-css">
+                      {% for value,key in student_form.fields.gender.choices %}
+                          <option value="{{ value }}" {% if student_form.gender.value == value %} selected {% endif %}>
+                              {{ key }}
+                          </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="id_course"> Course </label>
+                    <select required id="id_course" name="course" placeholder="Course" class="select-css" value="{{student_form.course.value}}">
+                      {% for value,key in student_form.fields.course.choices %}
+                          <!-- <h1>{{student_form.course}}</h1> -->
+                          <option value="{{ value }}" {% if student_form.course.value == value %} selected {% endif %}>
+                              {{ key }}
+                          </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="id_room"> Room </label>
+                    <select required id="id_room" name="room" placeholder="Room" class="select-css">
+                      {% for value,key in student_form.fields.room.choices %}
+                          <option value="{{ value }}" {% if student_form.room.choices.value == value %} selected {% endif %}>
+                              {{ key }}
+                          </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <!-- End StudentForm -->
+
+                  <input type="submit" class="reg_button" value="Register">
+                </form>
+              </div>
+            </div>
           </div>
-        {% endif %}
-        {% if student_form.errors %}
-          <div class="error">
-             <ul>
-               {% for key,value in student_form.errors.items %}
-                {% for error in value %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-               {% endfor %}
-             </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="a-full">
+            <div class="a-central-div">
+              {% if boys_hostel %}
+              <h2>Boys Hostel</h2>
+                  {% for hostel in boys_hostel %}
+                      <p>{{hostel.hostel_name}}</p>
+                  {% endfor %}
+              {% endif %}
+
+              {% if girls_hostel %}
+              <h2>Girls Hostel</h2>
+                  {% for hostel in girls_hostel %}
+                      <p>{{hostel.hostel_name}}<p>
+                  {% endfor %}
+              {% endif %}
+            </div>
           </div>
-        {% endif %}
+        </div>
       </div>
-      <!-- UserForm -->
-      <div class="form-group">
-        <label for="id_username"> Username </label>
-        <input required id="id_username" class="textarea-css" type="text" name="username" value="{% if user_form.username.value %}{{user_form.username.value}}{% else %}{% endif %}">
-        <span class="helptext">Same as your Roll No.</span></p>
-      </div>
-
-      <div class="form-group">
-        <label for="id_password"> Password </label>
-        <input required id="id_password" class="textarea-css" type="password" name="password" value="{% if user_form.password.value %}{{user_form.password.value}}{% else %}{% endif %}">
-      </div>
-
-      <!-- End UserForm -->
-
-      <!-- StudentForm -->
-      <div class="form-group">
-        <label for="id_student_name"> Name </label>
-        <input required class="textarea-css" type="text" name="student_name" value="{% if student_form.student_name.value %}{{student_form.student_name.value}}{% else %}{% endif %}">
-      </div>
-
-      <div class="form-group">
-        <!-- Name attribute should match form attribute -->
-        <label for="id_gender"> Gender </label>
-        <select required id="id_gender" name="gender" class="select-css">
-          {% for value,key in student_form.fields.gender.choices %}
-              <option value="{{ value }}" {% if student_form.gender.value == value %} selected {% endif %}>
-                  {{ key }}
-              </option>
-          {% endfor %}
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="id_course"> Course </label>
-        <select required id="id_course" name="course" class="select-css" value="{{student_form.course.value}}">
-          {% for value,key in student_form.fields.course.choices %}
-              <!-- <h1>{{student_form.course}}</h1> -->
-              <option value="{{ value }}" {% if student_form.course.value == value %} selected {% endif %}>
-                  {{ key }}
-              </option>
-          {% endfor %}
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="id_room"> Room </label>
-        <select required id="id_room" name="room" class="select-css">
-          {% for value,key in student_form.fields.room.choices %}
-              <option value="{{ value }}" {% if student_form.room.choices.value == value %} selected {% endif %}>
-                  {{ key }}
-              </option>
-          {% endfor %}
-        </select>
-      </div>
-      <!-- End StudentForm -->
-
-      <input type="submit" class="btn btn-primary" value="Register">
-    </form>
-    {% if boys_hostel %}
-    <h2>Boys Hostel</h2>
-    <ul>
-        {% for hostel in boys_hostel %}
-            <li>{{hostel.hostel_name}}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-    {% if girls_hostel %}
-    <h2>Girls Hostel</h2>
-    <ul>
-        {% for hostel in girls_hostel %}
-            <li>{{hostel.hostel_name}}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    </div>
   {% endif %}
 </div>
-
 {% endblock %}

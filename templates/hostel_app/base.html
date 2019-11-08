@@ -14,50 +14,79 @@
       padding: .6em 1.4em .5em .8em;
     }
 
-    .textarea-css{
-      display: block;
-      font-size: 16px;
-      font-family: sans-serif;
-      font-weight: 700;
-      color: #444;
-      line-height: 1.3;
-      padding: .6em 1.4em .5em .8em;
-      max-width: 100%;
-      box-sizing: border-box;
-      margin: 0;
-      border: 1px solid #aaa;
-      box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
-      border-radius: .5em;
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      appearance: none;
-      background-color: #fff;
-      background-repeat: no-repeat, repeat;
-      background-position: right .7em top 50%, 0 0;
-      background-size: .65em auto, 100%;
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: $font-family;
+        font-size: $font-size;
+        background-size: 200% 100% !important;
+        animation: move 10s ease infinite;
+        transform: translate3d(0, 0, 0);
+        background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%);
+        background-repeat:no-repeat;
+        background-attachment: fixed;
+        height: 100vh
+    }
+
+    h1{
+      text-align: center;
+      color: #fff;
+    }
+    /*-- for reg form --*/
+    .main-w3layouts {
+      padding: 3em 0 1em;
+    }
+
+    .main-agileinfo {
+      width: 35%;
+      margin: 3em auto;
+      background: rgba(0, 0, 0, 0.18);
+      background-size: cover;
+    }
+
+    .main-agileinfo-reg {
+      width: 60%;
+      margin: auto;
+      background: rgba(0, 0, 0, 0.18);
+      background-size: cover;
+    }
+
+    .agileits-top {
+      padding: 3em;
+    }
+
+    .agileits-top-reg {
+      padding: 1em;
     }
 
     .select-css {
     display: block;
+    padding: 0.8em;
+    width: 94.5%;
     font-size: 16px;
-    font-family: sans-serif;
     font-weight: 700;
-    color: #444;
     line-height: 1.3;
     padding: .6em 1.4em .5em .8em;
     max-width: 100%;
     box-sizing: border-box;
-    margin: 0;
-    border: 1px solid #aaa;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+    border: 1px solid rgba(255, 255, 255, 0.37);
     box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
     border-radius: .5em;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background-color: #fff;
+    background-color: transparent;
     background-repeat: no-repeat, repeat;
     background-position: right .7em top 50%, 0 0;
     background-size: .65em auto, 100%;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
     }
     .select-css::-ms-expand {
     display: none;
@@ -69,12 +98,532 @@
     border-color: #aaa;
     box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
     box-shadow: 0 0 0 3px -moz-mac-focusring;
-    color: #222;
+    color: #444;
     outline: none;
     }
     .select-css option {
     font-weight:normal;
     }
+
+    .textarea-css{
+      margin-top: 0.8em;
+      margin-bottom: 0.8em;
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      width: 94.5%;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.3;
+      padding: .6em 1.4em .5em .8em;
+      max-width: 100%;
+      box-sizing: border-box;
+      border: 1px solid rgba(255, 255, 255, 0.37);
+      box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+      border-radius: .5em;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: transparent;
+      background-repeat: no-repeat, repeat;
+      background-position: right .7em top 50%, 0 0;
+      background-size: .65em auto, 100%;
+    }
+
+    input.email, input.text.w3lpass {
+      margin: 2em 0;
+    }
+
+    .text:focus, .text:valid {
+      box-shadow: none;
+      outline: none;
+      background-position: 0 0;
+    }
+
+    .text:focus::-webkit-input-placeholder, .text:valid::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: .9em;
+      -webkit-transform: translateY(-30px);
+      -moz-transform: translateY(-30px);
+      -o-transform: translateY(-30px);
+      -ms-transform: translateY(-30px);
+      transform: translateY(-30px);
+      visibility: visible !important;
+    }
+
+    ::-webkit-input-placeholder {
+      color: #fff;
+      font-weight: 100;
+    }
+
+    :-moz-placeholder {
+      /* Firefox 18- */
+      color: #fff;
+    }
+
+    ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #fff;
+    }
+
+    :-ms-input-placeholder {
+      color: #fff;
+    }
+
+    .reg_button {
+      font-size: .9em;
+      color: #fff;
+      background: #76b852;
+      outline: none;
+      border: 1px solid #76b852;
+      cursor: pointer;
+      padding: 0.9em;
+      -webkit-appearance: none;
+      width: 100%;
+      margin: 2em 0;
+      letter-spacing: 4px;
+    }
+
+    .reg_button:hover {
+      -webkit-transition: .5s all;
+      -moz-transition: .5s all;
+      -o-transition: .5s all;
+      -ms-transition: .5s all;
+      transition: .5s all;
+      background: #8DC26F;
+    }
+
+    .agileits-top p {
+      font-size: 1em;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 1px;
+      font-weight: 300;
+    }
+
+    .agileits-top p a {
+      color: #fff;
+      -webkit-transition: .5s all;
+      -moz-transition: .5s all;
+      transition: .5s all;
+      font-weight: 400;
+    }
+
+    .agileits-top p a:hover {
+      color: #76b852;
+    }
+
+    /*-- responsive-design --*/
+
+    @media(max-width:1366px) {
+      h1 {
+        font-size: 2.6em;
+      }
+
+      .agileits-top {
+        padding: 2.5em;
+      }
+
+      .main-agileinfo {
+        margin: 2em auto;
+      }
+
+      .main-agileinfo {
+        width: 36%;
+      }
+    }
+
+    @media(max-width:1280px) {
+      .main-agileinfo {
+        width: 40%;
+      }
+    }
+
+    @media(max-width:1080px) {
+      .main-agileinfo {
+        width: 46%;
+      }
+      .main-agileinfo-reg {
+        width: 46%;
+      }
+    }
+
+    @media(max-width:1024px) {
+      .main-agileinfo {
+        width: 49%;
+      }
+      .main-agileinfo-reg {
+        width: 49%;
+      }
+    }
+
+    @media(max-width:991px) {
+      h1 {
+        font-size: 2.4em;
+      }
+
+      .main-w3layouts {
+        padding: 2em 0 1em;
+      }
+    }
+
+    @media(max-width:900px) {
+      .main-agileinfo {
+        width: 58%;
+      }
+      .main-agileinfo-reg {
+        width: 58%;
+      }
+    }
+
+    @media(max-width:800px) {
+      h1 {
+        font-size: 2.2em;
+      }
+    }
+
+    @media(max-width:736px) {
+      .main-agileinfo {
+        width: 62%;
+      }
+      .main-agileinfo-reg {
+        width: 62%;
+      }
+    }
+
+    @media(max-width:667px) {
+      .main-agileinfo {
+        width: 67%;
+      }
+      .main-agileinfo-reg {
+        width: 67%;
+      }
+    }
+
+    @media(max-width:600px) {
+      .agileits-top {
+        padding: 2.2em;
+      }
+
+      .agileits-top-reg {
+        padding: 2.2em;
+      }
+
+      w3lpass {
+        margin: 1.5em 0;
+      }
+
+      .reg_button {
+        margin: 2em 0;
+      }
+
+      h1 {
+        font-size: 2em;
+        letter-spacing: 3px;
+      }
+    }
+
+    @media(max-width:568px) {
+      .main-agileinfo {
+        width: 75%;
+      }
+
+      .main-agileinfo-reg {
+        width: 75%;
+      }
+      .colorlibcopy-agile p {
+        padding: 0 2em;
+      }
+    }
+
+    @media(max-width:480px) {
+      h1 {
+        font-size: 1.8em;
+        letter-spacing: 3px;
+      }
+
+      .agileits-top {
+        padding: 1.8em;
+      }
+
+      .agileits-top-reg {
+        padding: 1.8em;
+      }
+      .agileits-top p {
+        font-size: 0.9em;
+      }
+      .agileits-top-reg p {
+        font-size: 0.9em;
+      }
+    }
+
+    @media(max-width:414px) {
+      h1 {
+        font-size: 1.8em;
+        letter-spacing: 2px;
+      }
+
+      .main-agileinfo {
+        width: 85%;
+        margin: 1.5em auto;
+      }
+
+      .text:focus, .text:valid {
+        background-position: 0 0px;
+      }
+
+      .wthree-text ul li, .wthree-text ul li:nth-child(2) {
+        display: block;
+        float: none;
+      }
+
+      .wthree-text ul li:nth-child(2) {
+        margin-top: 1.5em;
+      }
+
+      .reg_button {
+        margin: 2em 0 1.5em;
+        letter-spacing: 3px;
+      }
+
+      .reg_button {
+        margin: 2em 0 1.5em;
+      }
+
+      .colorlibcopy-agile {
+        margin: 1em 0 1em;
+      }
+    }
+
+    @media(max-width:384px) {
+      .main-agileinfo {
+        width: 88%;
+      }
+
+      .main-agileinfo-reg {
+        width: 88%;
+      }
+      .colorlibcopy-agile p {
+        padding: 0 1em;
+      }
+    }
+
+    @media(max-width:375px) {
+      .agileits-top p {
+        letter-spacing: 0px;
+      }
+    }
+
+    @media(max-width:320px) {
+      .main-w3layouts {
+        padding: 1.5em 0 0;
+      }
+
+      .agileits-top {
+        padding: 1.2em;
+      }
+
+      .colorlibcopy-agile {
+        margin: 0 0 1em;
+      }
+
+      h1 {
+        font-size: 1.7em;
+        letter-spacing: 0px;
+      }
+
+      .main-agileinfo {
+        width: 92%;
+        margin: 1em auto;
+      }
+
+      .main-agileinfo-reg {
+        width: 92%;
+        margin: 1em auto;
+      }
+      .text:focus, .text:valid {
+        background-position: 0 0px;
+      }
+
+      .reg_button {
+        margin: 1.5em 0;
+        padding: 0.8em;
+        font-size: .85em;
+      }
+
+      .colorlibcopy-agile p {
+        font-size: .85em;
+      }
+
+      .wthree-text label {
+        font-size: 0.85em;
+      }
+
+      .main-w3layouts {
+        padding: 1em 0 0;
+      }
+    }
+    /*-- end reg form --*/
+
+    @keyframes NO {
+    from, to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    10%, 30%, 50%, 70%, 90% {
+      -webkit-transform: translate3d(-10px, 0, 0);
+      transform: translate3d(-10px, 0, 0);
+    }
+
+    20%, 40%, 60%, 80% {
+      -webkit-transform: translate3d(10px, 0, 0);
+      transform: translate3d(10px, 0, 0);
+    }
+    }
+
+    @keyframes arrive {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 50px, 0);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    @keyframes move {
+        0% {
+            background-position: 0 0
+        }
+
+        50% {
+            background-position: 100% 0
+        }
+
+        100% {
+            background-position: 0 0
+        }
+    }
+
+    .list-type5{
+    max-width: 400px;
+    margin:0 auto;
+    }
+
+    .list-type5 ol {
+    list-style-type: none;
+    list-style-type: decimal !ie; /*IE 7- hack*/
+    margin: 0;
+    margin-left: 1em;
+    padding: 0;
+    counter-reset: li-counter;
+    }
+    .list-type5 ol li{
+    position: relative;
+    margin-bottom: 1.5em;
+    padding: 0.5em;
+    background-color: #F0D756;
+    padding-left: 58px;
+    }
+
+    .list-type5 ol li:before {
+    position: absolute;
+    top: -0.3em;
+    left: -0.5em;
+    width: 1.8em;
+    height: 1.2em;
+    font-size: 2em;
+    line-height: 1.2;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    background-color: #6CD6CC;
+    transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    z-index: 99;
+    overflow: hidden;
+    content: counter(li-counter);
+    counter-increment: li-counter;
+    }
+
+    /* profile card */
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .title {
+      color: grey;
+      font-size: 18px;
+    }
+
+    .button1 {
+      border: none;
+      display: inline-block;
+      padding: 8px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    button:hover, a:hover {
+      opacity: 0.7;
+    }
+
+    /* end profile card */
+
+    /* flip card */
+    .flip-card {
+    	display: inline-block;
+      background-color: transparent;
+      width: 200px;
+      height: 200px;
+      perspective: 1000px;
+      margin: auto;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+
+    .flip-card-front {
+      background-color: #bbb;
+      color: black;
+    }
+
+    .flip-card-back {
+      background-color: #2980b9;
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    /* end flip card */
     </style>
 
   </head>
@@ -88,36 +637,37 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{% url 'index' %}">Home</a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           {% if user.is_authenticated %}
-          <li><a class="navbar-link" href="{% url 'hostel_app:student-details'%}">View Profile</a></li>
-          <li><a class="navbar-link" href="{% url 'hostel_app:edit-profile'%}">Edit Profile</a></li>
-          <li><a href="{% url 'hostel_app:hostel-details' %}">Hostel Details</a></li>
-          <li><a href="{% url 'hostel_app:hostel-student-list' %}">Hostel Student List</a></li>
+            {% if user.get_username == "chief_warden" %}
+            <li><a class="navbar-link" href="{% url 'index' %}">Home</a></li>
+            <li><a class="navbar-link" href="{% url 'hostel_app:warden-add-room'%}">Add Room</a></li>
+            <li><a class="navbar-link" href="{% url 'hostel_app:warden-add-hostel'%}">Add Hostel</a></li>
+            <li><a href="{% url 'hostel_app:student-list' %}">Student List</a></li>
+            {% else %}
+            <li><a class="navbar-link" href="{% url 'hostel_app:student-details' %}">Profile</a></li>
+            <li><a href="{% url 'hostel_app:hostel-details' %}">Hostel Details</a></li>
+            <li><a href="{% url 'hostel_app:hostel-student-list' %}">Hostel Student List</a></li>
+            {% endif %}
+          <li><a class="navbar-link" href="{% url 'logout' %}">Logout</a></li>
           {% else %}
+          <li><a class="navbar-link" href="{% url 'index' %}">Home</a></li>
           <li><a class="navbar-link" href="{% url 'hostel_app:reg' %}">Register</a></li>
           <li><a href="{% url 'hostel_app:student-list' %}">Student List</a></li>
-          {% endif %}
-
-
-          {% if user.is_authenticated %}
-            <li><a class="navbar-link" href="{% url 'logout' %}">Logout</a></li>
-          {% else %}
-            <li><a class="navbar-link" href="{% url 'hostel_app:user_login' %}">Login</a></li>
+          <li><a class="navbar-link" href="{% url 'hostel_app:user_login' %}">Login</a></li>
           {% endif %}
         </ul>
       </div>
     </div>
   </nav>
-    <div class="container">
-      <div class="jumbotron">
+    <!-- <div class="container"> -->
+      <!-- <div class="jumbotron" style="background-color:transparent;"> -->
       {% block body_block %}
 
       {% endblock %}
-      </div>
-    </div>
+      <!-- </div> -->
+    <!-- </div> -->
   </body>
 </html>

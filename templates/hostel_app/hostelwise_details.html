@@ -3,16 +3,35 @@
 {% load staticfiles %}
 
 {% block body_block %}
+    <style>
+      div.a-full {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      div.a-central-div {
+        padding: 0 40px;
+        border-color: white;
+        border-width: 15px;
+        border-style: ridge;
+        border-collapse: separate;
+      }
+    </style>
+    <div class="a-full">
+      <div class="a-central-div">
+        <h1>{{ hostel.hostel_name }} Hostel </h1>
+        <h2> Warden : {{ hostel.warden }}</h2>
+        <h3>Total students : {{ num_students }}</h1>
 
-    <h1>{{ hostel.hostel_name }} Hostel </h1>
-    <h2> Warden : {{ hostel.warden }}</h2>
-    <h3>Total students : {{ num_students }}</h1>
-
-    <br>
-    <br>
-    <h4>Mess type : {{ hostel.mess.mess_type}}</h4>
-    <h4>Mess Contractor : {{ hostel.mess.contractor}}</h4>
-    <h4>Mess Fees Daily : Rs.{{ hostel.mess.daily_fees}}</h4>
-    <br>
-    <br>
+        <br>
+        <br>
+        <h4>Mess type : {{ hostel.mess.mess_type}}</h4>
+        <h4>Mess Contractor : {{ hostel.mess.contractor}}</h4>
+        <h4>Mess Fees Daily : Rs.{{ hostel.mess.daily_fees}}</h4>
+        <br>
+        <br>
+      </div>
+    </div>
 {% endblock %}

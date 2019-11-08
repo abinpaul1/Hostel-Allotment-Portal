@@ -14,9 +14,12 @@
   - password = your_password
 - Run mysql: mysql
   - create database hostels
-- To populate with default data: python3 setup_script.py
 - python3 manage.py makemigrations
 - python3 manage.py migrate
 - python3 manage.py createsuperuser
   - fill in admin login details
+- To populate with default data: python3 setup_script.py
 - python3 manage.py runserver
+- Default Login Dertails for Chief Warden:
+  - Username : chief_warden
+  - Password : warden@hostels

@@ -5,6 +5,7 @@ import django
 django.setup()
 
 from hostel_app.models import Hostel, Mess, Room, Course
+from django.contrib.auth.models import User
 
 import random
 
@@ -20,9 +21,9 @@ def add_course():
         c.save()
 
 def add_mess():
-    mess_type_list = ['Veg','Non Veg','Continental','North Indian','South Indian']
-    contractor_list = ['Babu','Sandeep','Geo','Reshma','Susheela']
-    daily_fees = [55,85,102,70,60]
+    mess_type_list = ['Veg','Non Veg','Continental','North Indian','South Indian','Arabian','Thai','Chinese','Gujarathi']
+    contractor_list = ['Babu P Raj','Sandeep Kumar','Geo Vijay','Reshma','Susheela','Al Qatil','Lee Xang','B D Wong','Navaneeth Patel']
+    daily_fees = [55,85,102,70,60,125,101,67,97]
     for index in range(len(mess_type_list)):
         m = Mess.objects.get_or_create(mess_type = mess_type_list[index], contractor = contractor_list[index],daily_fees=daily_fees[index])[0]
         m.save()
@@ -53,4 +54,8 @@ if __name__ == '__main__':
     add_mess()
     add_hostel()
     add_rooms()
-    print("Vacated & Alloted")
+    print("Populated")
+    #Adding warden
+    user=User.objects.create_user('chief_warden', password='warden@hostels')
+    user.save()
+    print("Added Warden")

@@ -11,8 +11,8 @@ class Student(models.Model):
     gender_choice = [('M',"Male"),('F',"Female")]
     gender = models.CharField(choices=gender_choice, max_length=1, default=None)
 
-    course = models.ForeignKey("Course",on_delete=models.CASCADE)
-    room = models.ForeignKey("Room",on_delete=models.CASCADE,null=True)
+    course = models.ForeignKey("Course",on_delete=models.SET_NULL,null=True)
+    room = models.ForeignKey("Room",on_delete=models.SET_NULL,null=True)
 
     def clean(self):
         if self.gender != self.room.hostel.gender:
@@ -34,14 +34,14 @@ class Hostel(models.Model):
     gender_choice = [('M',"Male"),('F',"Female")]
 
     gender = models.CharField(choices=gender_choice, max_length=1, default=None)
-    mess = models.OneToOneField("Mess", on_delete=models.CASCADE)
+    mess = models.OneToOneField("Mess", on_delete=models.SET_NULL,null=True)
 
     def __str__(self):
         return self.hostel_name
 
 class Mess(models.Model):
 
-    mess_type = models.CharField(max_length=50,primary_key=True)
+    mess_type = models.CharField(max_length=50)
     contractor = models.CharField(max_length=50)
     daily_fees = models.IntegerField()
 

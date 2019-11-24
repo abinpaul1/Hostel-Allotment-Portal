@@ -1,16 +1,16 @@
-# Hostel-Management
+# Hostel-Allotment-Portal
 
 ## Setup instructions
 
-- apt install python3
-- apt install python3-pip
-- apt install mysql-server
-- apt install libmysqlclient-dev
+- sudo apt install python3
+- sudo apt install python3-pip
+- sudo apt install mysql-server
+- sudo apt install libmysqlclient-dev
 - pip3 install -r req.txt
 - Setup mysql and configure a new user before continuing
-- Nano ~/.my.cnf then add
+- nano ~/.my.cnf ------- then add the following to the file
   - [client]
-  - user = username
+  - user = sql_username
   - password = your_password
 - Run mysql: mysql
   - create database hostels

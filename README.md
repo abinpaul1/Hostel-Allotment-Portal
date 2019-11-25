@@ -23,3 +23,11 @@
 - Default Login Dertails for Chief Warden:
   - Username : chief_warden
   - Password : warden@hostels
+
+## ER Diagram
+
+- ![ER Diagram](Diagrams/ER_Diagram.jpg)
+
+## Relation Schema
+
+- ![Relation Schema](Diagrams/Relation_Schema.png)
